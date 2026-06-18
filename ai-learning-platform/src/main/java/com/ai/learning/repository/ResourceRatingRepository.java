@@ -2,6 +2,8 @@ package com.ai.learning.repository;
 
 import com.ai.learning.entity.ResourceRating;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,5 +21,6 @@ public interface ResourceRatingRepository extends JpaRepository<ResourceRating, 
 
     List<ResourceRating> findByUserId(Long userId);
 
-    double averageRatingByResourceId(Long resourceId);
+    @Query("SELECT AVG(r.rating) FROM ResourceRating r WHERE r.resource.id = :resourceId")
+    Double averageRatingByResourceId(@Param("resourceId") Long resourceId);
 }
