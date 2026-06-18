@@ -1,55 +1,47 @@
 package com.ai.learning.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.time.LocalDateTime;
 
 /**
  * 操作日志实体类
  */
+@Data
 @Entity
-@Table(name = "operation_logs")
+@Table(name = "operation_log")
+@EntityListeners(AuditingEntityListener.class)
 public class OperationLog {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-    
+
     @Column(nullable = false, length = 100)
-    private String operationType; // 操作类型：登录、资源审核、求助认领等
-    
+    private String operationType;
+
+    @Column
+    private Long userId;
+
+    @Column(length = 50)
+    private String username;
+
+    @Column(length = 50)
+    private String ip;
+
     @Column(length = 500)
     private String description;
-    
-    @Column(length = 200)
-    private String ipAddress;
-    
+
+    @Column
+    private Long durationMs;
+
+    @Column(length = 20)
+    private String status;
+
+    @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createTime;
-    
-    @PrePersist
-    protected void onCreate() {
-        createTime = LocalDateTime.now();
-    }
-    
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
-    
-    public String getOperationType() { return operationType; }
-    public void setOperationType(String operationType) { this.operationType = operationType; }
-    
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-    
-    public String getIpAddress() { return ipAddress; }
-    public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
-    
-    public LocalDateTime getCreateTime() { return createTime; }
 }

@@ -4,17 +4,18 @@ package com.ai.learning.entity;
  * 用户角色枚举
  */
 public enum Role {
-    ADMIN("管理员"),
-    TEACHER("教师/助教"),
-    STUDENT("学生");
+    /**
+     * 系统管理员
+     */
+    ADMIN,
     
-    private final String description;
+    /**
+     * 教师或助教
+     */
+    TEACHER,
     
-    Role(String description) {
-        this.description = description;
-    }
-    
-    public String getDescription() {
-        return description;
-    }
+    /**
+     * 学生
+     */
+    STUDENT
 }

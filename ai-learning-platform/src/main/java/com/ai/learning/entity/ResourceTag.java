@@ -8,38 +8,25 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 /**
- * AI调用日志实体类
+ * 资源与标签关联表
  */
 @Data
 @Entity
-@Table(name = "ai_call_log")
+@Table(name = "resource_tag")
 @EntityListeners(AuditingEntityListener.class)
-public class AiLog {
+public class ResourceTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
-    private String functionType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "resource_id", nullable = false)
+    private Resource resource;
 
-    @Column
-    private Long userId;
-
-    @Column(length = 2000)
-    private String requestSummary;
-
-    @Column(length = 2000)
-    private String responseSummary;
-
-    @Column
-    private Long durationMs;
-
-    @Column(length = 20)
-    private String status;
-
-    @Column(length = 500)
-    private String errorMessage;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tag_id", nullable = false)
+    private Tag tag;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
