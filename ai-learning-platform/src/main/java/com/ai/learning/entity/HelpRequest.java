@@ -15,11 +15,12 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "help_request")
 @EntityListeners(AuditingEntityListener.class)
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class HelpRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(nullable = false, length = 200)
@@ -30,12 +31,10 @@ public class HelpRequest {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
-    @EqualsAndHashCode.Exclude
     private User student;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
-    @EqualsAndHashCode.Exclude
     private Course course;
 
     @Column(nullable = false)
@@ -56,7 +55,6 @@ public class HelpRequest {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "solver_id")
-    @EqualsAndHashCode.Exclude
     private User solver;
 
     @Column(length = 2000)

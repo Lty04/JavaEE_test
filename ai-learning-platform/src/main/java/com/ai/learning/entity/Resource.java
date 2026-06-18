@@ -15,11 +15,12 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "resource")
 @EntityListeners(AuditingEntityListener.class)
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Resource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(nullable = false, length = 200)
@@ -40,12 +41,10 @@ public class Resource {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
-    @EqualsAndHashCode.Exclude
     private Course course;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uploader_id")
-    @EqualsAndHashCode.Exclude
     private User uploader;
 
     @Column(nullable = false)
