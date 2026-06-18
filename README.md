@@ -77,10 +77,22 @@ spring.jpa.hibernate.ddl-auto=update <-- 这个不用改，它会自动帮你建
 > 3. 等待底部进度条走完，它会自动下载缺少的包。
 
 ### 第三步：运行项目
-1. 用 IDEA 打开这个项目文件夹。
-2. 找到 `src/main/java/.../CampusAiHelpApplication.java` 这个文件（通常有个绿色小三角形图标）。
-3. 点击那个 **绿色三角形** (Run)。
-4. 等控制台不再滚动，出现 `Started CampusAiHelpApplication in ... seconds` 字样，就说明成功啦！
+1. 用 IDEA 打开这个项目文件夹（打开包含 `pom.xml` 的那个根目录）。
+2. 找到启动文件：
+   - 路径：`ai-learning-platform/src/main/java/com/ai/learning/CampusAiHelpApplication.java`
+   - **特征**：这个文件里有一个 `public static void main` 方法，而且文件名旁边应该有个**绿色小三角形**图标 ▶️。
+3. 点击那个 **绿色三角形** (Run) 或者右键选择 "Run 'CampusAiHelpApplication'"。
+4. 等控制台不再滚动，出现以下字样就说明成功啦：
+   ```
+   ========================================
+      ✓ 系统启动成功！
+      🌐 访问地址：http://localhost:8080
+   ========================================
+   ```
+
+> 💡 **找不到启动文件？**
+> - 确保你打开的是 `ai-learning-platform` 这个文件夹作为项目根目录。
+> - 在 IDEA 左侧项目树里展开：`src` → `main` → `java` → `com.ai.learning`，就能看到 `CampusAiHelpApplication.java`。
 
 ---
 
