@@ -1,71 +1,47 @@
 package com.ai.learning.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.time.LocalDateTime;
 
 /**
  * 课程实体类
  */
+@Data
 @Entity
-@Table(name = "courses")
+@Table(name = "course")
+@EntityListeners(AuditingEntityListener.class)
 public class Course {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(nullable = false, length = 200)
+
+    @Column(nullable = false, length = 100)
     private String name;
-    
-    @Column(length = 1000)
+
+    @Column(length = 500)
     private String description;
-    
-    @Column(length = 50)
-    private String code; // 课程代码
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id")
-    private User teacher;
-    
+
+    @Column(length = 200)
+    private String code;
+
     @Column(nullable = false)
-    private Boolean active = true;
-    
+    private Integer credits = 0;
+
+    @Column(length = 50)
+    private String department;
+
+    @Column(nullable = false)
+    private Boolean enabled = true;
+
+    @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createTime;
-    
+
     @Column(nullable = false)
     private LocalDateTime updateTime;
-    
-    @PrePersist
-    protected void onCreate() {
-        createTime = LocalDateTime.now();
-        updateTime = LocalDateTime.now();
-    }
-    
-    @PreUpdate
-    protected void onUpdate() {
-        updateTime = LocalDateTime.now();
-    }
-    
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-    
-    public String getCode() { return code; }
-    public void setCode(String code) { this.code = code; }
-    
-    public User getTeacher() { return teacher; }
-    public void setTeacher(User teacher) { this.teacher = teacher; }
-    
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
-    
-    public LocalDateTime getCreateTime() { return createTime; }
-    public LocalDateTime getUpdateTime() { return updateTime; }
 }
