@@ -1,338 +1,155 @@
-# AI赋能校园学习互助平台
+# 🎓 AI赋能校园学习互助平台 - 小白入门版
 
-## 项目简介
-
-本项目是一个基于JavaEE技术栈开发的校园学习互助平台，融合了AI智能辅助功能，旨在为在校师生提供一个高效、便捷的学习交流与资源共享环境。平台支持用户发布学习求助、分享课程资源、获取AI智能解答等功能，并通过积分激励机制促进用户积极参与。
-
-## 技术栈
-
-### 后端技术
-- **Java**: 17
-- **Spring Framework**: 5.3.30
-- **Spring Security**: 5.7.11 (安全认证与授权)
-- **Hibernate**: 5.6.15.Final (ORM框架)
-- **JPA**: 2.2
-- **MySQL**: 8.0.33
-- **HikariCP**: 4.0.3 (数据库连接池)
-- **Jackson**: 2.15.3 (JSON处理)
-- **Logback**: 1.4.11 (日志框架)
-- **Maven**: 项目管理与构建
-
-### 前端技术
-- **JSP**: 页面模板
-- **JSTL**: 标签库
-- **HTML5/CSS3/JavaScript**
-
-### 开发工具
-- **IDE**: IntelliJ IDEA / Eclipse
-- **应用服务器**: Apache Tomcat 9.x
-- **构建工具**: Maven 3.x
-
-## 项目结构
-
-```
-ai-learning-platform/
-├── src/
-│   ├── main/
-│   │   ├── java/com/ai/learning/
-│   │   │   ├── entity/          # 实体类
-│   │   │   │   ├── User.java           # 用户实体
-│   │   │   │   ├── Role.java           # 角色实体
-│   │   │   │   ├── UserRole.java       # 用户角色关联
-│   │   │   │   ├── Course.java         # 课程实体
-│   │   │   │   ├── Resource.java       # 学习资源实体
-│   │   │   │   ├── ResourceFavorite.java   # 资源收藏
-│   │   │   │   ├── ResourceRating.java     # 资源评分
-│   │   │   │   ├── HelpRequest.java        # 求助请求
-│   │   │   │   ├── HelpComment.java        # 求助评论
-│   │   │   │   ├── AiLog.java              # AI交互日志
-│   │   │   │   ├── PointRecord.java        # 积分记录
-│   │   │   │   ├── OperationLog.java       # 操作日志
-│   │   │   │   ├── AuditStatus.java        # 审核状态枚举
-│   │   │   │   └── HelpStatus.java         # 求助状态枚举
-│   │   │   ├── repository/        # 数据访问层
-│   │   │   │   ├── UserRepository.java
-│   │   │   │   ├── CourseRepository.java
-│   │   │   │   ├── ResourceRepository.java
-│   │   │   │   ├── HelpRequestRepository.java
-│   │   │   │   ├── AiLogRepository.java
-│   │   │   │   └── ...
-│   │   │   ├── service/           # 服务层
-│   │   │   │   ├── AiService.java
-│   │   │   │   └── impl/
-│   │   │   │       └── AiServiceImpl.java
-│   │   │   ├── dto/               # 数据传输对象
-│   │   │   │   ├── AiRequest.java
-│   │   │   │   └── AiResponse.java
-│   │   │   └── config/            # 配置类
-│   │   ├── webapp/
-│   │   │   ├── WEB-INF/
-│   │   │   │   ├── web.xml              # Web应用配置
-│   │   │   │   ├── spring-config.xml    # Spring配置
-│   │   │   │   └── views/               # JSP视图
-│   │   │   ├── static/                  # 静态资源
-│   │   │   │   ├── css/
-│   │   │   │   ├── js/
-│   │   │   │   └── images/
-│   │   │   └── index.jsp                # 首页
-│   │   └── resources/
-│   │       ├── logback.xml              # 日志配置
-│   │       └── database/
-│   │           └── schema.sql           # 数据库初始化脚本
-│   └── test/                            # 测试代码
-├── pom.xml                              # Maven配置文件
-└── README.md                            # 项目说明文档
-```
-
-## 核心功能模块
-
-### 1. 用户管理模块
-- 用户注册与登录（支持学号/工号认证）
-- 角色管理（学生、教师、管理员）
-- 个人信息管理
-- 积分系统管理
-
-### 2. 课程资源模块
-- 课程信息管理
-- 学习资源上传与下载
-- 资源分类与标签
-- 资源收藏与评分
-- 资源审核机制
-
-### 3. 学习求助模块
-- 发布学习问题
-- 问题回答与评论
-- 问题状态跟踪（待解决、已解决、已关闭）
-- 最佳答案评选
-
-### 4. AI智能辅助模块
-- AI智能问答
-- 学习建议推荐
-- 问题自动分类
-- AI交互记录查询
-
-### 5. 积分激励模块
-- 积分获取规则
-  - 发布优质资源
-  - 解答他人问题
-  - 获得好评
-- 积分消费规则
-  - 下载 premium 资源
-  - 优先获取AI解答
-- 积分排行榜
-
-### 6. 系统管理模块
-- 内容审核管理
-- 用户行为监控
-- 操作日志审计
-- 系统数据统计
-
-## 数据库设计
-
-### 主要数据表
-
-| 表名 | 说明 |
-|------|------|
-| users | 用户信息表 |
-| roles | 角色信息表 |
-| user_roles | 用户角色关联表 |
-| courses | 课程信息表 |
-| resources | 学习资源表 |
-| resource_favorites | 资源收藏表 |
-| resource_ratings | 资源评分表 |
-| help_requests | 求助请求表 |
-| help_comments | 求助评论表 |
-| ai_logs | AI交互日志表 |
-| point_records | 积分记录表 |
-| operation_logs | 操作日志表 |
-
-## 快速开始
-
-### 环境要求
-- JDK 17+
-- MySQL 8.0+
-- Maven 3.6+
-- Tomcat 9.x
-
-### 安装步骤
-
-#### 1. 克隆项目
-```bash
-git clone <repository-url>
-cd ai-learning-platform
-```
-
-#### 2. 配置数据库
-创建MySQL数据库并执行初始化脚本：
-```sql
-CREATE DATABASE ai_learning_platform CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE ai_learning_platform;
-SOURCE src/main/resources/database/schema.sql;
-```
-
-#### 3. 修改配置文件
-编辑 `src/main/webapp/WEB-INF/spring-config.xml`，配置数据库连接：
-```xml
-<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
-    <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ai_learning_platform?useSSL=false&amp;serverTimezone=UTC"/>
-    <property name="username" value="your_username"/>
-    <property name="password" value="your_password"/>
-</bean>
-```
-
-#### 4. 编译项目
-```bash
-mvn clean compile
-```
-
-#### 5. 打包部署
-```bash
-mvn clean package
-```
-
-生成的WAR文件位于 `target/ai-learning-platform.war`
-
-#### 6. 运行项目
-
-**方式一：使用Tomcat Maven插件**
-```bash
-mvn tomcat7:run
-```
-访问地址：http://localhost:8080/
-
-**方式二：部署到Tomcat服务器**
-1. 将 `target/ai-learning-platform.war` 复制到Tomcat的 `webapps` 目录
-2. 启动Tomcat服务器
-3. 访问地址：http://localhost:8080/ai-learning-platform/
-
-## API接口说明
-
-### 用户相关接口
-| 接口 | 方法 | 描述 |
-|------|------|------|
-| /api/user/register | POST | 用户注册 |
-| /api/user/login | POST | 用户登录 |
-| /api/user/profile | GET | 获取个人信息 |
-| /api/user/profile | PUT | 更新个人信息 |
-
-### 资源相关接口
-| 接口 | 方法 | 描述 |
-|------|------|------|
-| /api/resources | GET | 获取资源列表 |
-| /api/resources/{id} | GET | 获取资源详情 |
-| /api/resources | POST | 上传资源 |
-| /api/resources/{id}/favorite | POST | 收藏资源 |
-| /api/resources/{id}/rating | POST | 评分资源 |
-
-### 求助相关接口
-| 接口 | 方法 | 描述 |
-|------|------|------|
-| /api/help-requests | GET | 获取求助列表 |
-| /api/help-requests/{id} | GET | 获取求助详情 |
-| /api/help-requests | POST | 发布求助 |
-| /api/help-requests/{id}/comment | POST | 发表评论 |
-
-### AI相关接口
-| 接口 | 方法 | 描述 |
-|------|------|------|
-| /api/ai/query | POST | AI智能问答 |
-| /api/ai/recommend | GET | 获取学习推荐 |
-| /api/ai/logs | GET | 查询AI交互历史 |
-
-## 安全特性
-
-- **认证机制**: 基于Spring Security的用户认证
-- **授权管理**: 基于角色的访问控制（RBAC）
-- **密码加密**: BCrypt密码哈希算法
-- **会话管理**:安全的Session管理策略
-- **XSS防护**: 输入验证与输出编码
-- **CSRF防护**: CSRF Token机制
-
-## 开发规范
-
-### 代码规范
-- 遵循阿里巴巴Java开发手册
-- 使用统一的命名规范
-- 保持代码注释完整
-- 编写单元测试
-
-### Git工作流
-```bash
-# 创建功能分支
-git checkout -b feature/feature-name
-
-# 提交代码
-git commit -m "feat: 添加新功能"
-
-# 推送到远程
-git push origin feature/feature-name
-
-# 创建Pull Request
-```
-
-### 提交信息规范
-- `feat`: 新功能
-- `fix`: 修复bug
-- `docs`: 文档更新
-- `style`: 代码格式调整
-- `refactor`: 代码重构
-- `test`: 测试相关
-- `chore`: 构建/工具链相关
-
-## 测试
-
-### 运行单元测试
-```bash
-mvn test
-```
-
-### 生成测试报告
-```bash
-mvn clean test jacoco:report
-```
-
-测试报告位于 `target/site/jacoco/index.html`
-
-## 常见问题
-
-### Q1: 数据库连接失败
-检查MySQL服务是否启动，确认配置文件中的数据库连接信息正确。
-
-### Q2: 端口被占用
-修改 `pom.xml` 中Tomcat插件的端口配置，或关闭占用端口的进程。
-
-### Q3: 中文乱码
-确保数据库、JSP页面、配置文件均使用UTF-8编码。
-
-## 项目成员
-
-| 角色 | 职责 |
-|------|------|
-| 项目负责人 | 整体架构设计与项目管理 |
-| 后端开发 | 业务逻辑实现与API开发 |
-| 前端开发 | 页面设计与交互实现 |
-| 测试工程师 | 测试用例编写与质量保障 |
-
-## 许可证
-
-本项目采用 MIT 许可证。详见 [LICENSE](LICENSE) 文件。
-
-## 联系方式
-
-如有问题或建议，请通过以下方式联系：
-- Email: support@ai-learning-platform.com
-- GitHub Issues: [提交Issue](https://github.com/your-repo/issues)
-
-## 更新日志
-
-### v1.0.0 (2024-01-01)
-- ✨ 初始版本发布
-- ✅ 实现用户管理功能
-- ✅ 实现课程资源管理
-- ✅ 实现学习求助功能
-- ✅ 集成AI智能问答
-- ✅ 建立积分激励机制
+> 👋 **你好！如果你是编程新手，不用担心！** 这份文档专门为你准备，用最简单的大白话教你怎么运行这个项目。
 
 ---
 
-**注意**: 本项目为JavaEE应用程序开发课程的期末大作业，仅供学习交流使用。
+## 🧐 这个项目是做什么的？
+
+想象一个**校园版的"知乎" + "AI家教"**：
+- 🙋‍♂️ **提问**：遇到不会的题目？发个帖子求助！
+- 🤖 **AI帮忙**：AI 助手会立刻给你解题思路（就像有个24小时在线的家教）。
+- 📚 **找资料**：上传或下载学习笔记、课件。
+- 💰 **赚积分**：帮助别人解答问题可以赚积分，积分能换小礼品。
+- 🛡️ **安全**：只有本校同学才能注册登录。
+
+**简单来说**：就是一个让大学生互相讲题、分享资料，还有AI帮忙的智能学习社区。
+
+---
+
+## 🛠️ 你需要准备什么？（环境搭建）
+
+在开始之前，请确保你的电脑上安装了以下三个软件（如果没安装，照着下面的链接去下载安装）：
+
+### 1. ☕ Java (JDK 17)
+这是运行Java程序的"地基"。
+- **怎么检查**：打开命令行（黑窗口），输入 `java -version`。如果显示版本号是 `17` 左右，就成功了。
+- **下载地址**：[Oracle JDK](https://www.oracle.com/java/technologies/downloads/) 或 [OpenJDK](https://openjdk.org/)
+
+### 2. 🏗️ Maven
+这是项目的"管家"，负责自动下载项目需要的各种工具包（比如刚才报错缺少的 Spring Data）。
+- **怎么检查**：命令行输入 `mvn -version`。
+- **下载地址**：[Maven官网](https://maven.apache.org/download.cgi)
+- **小白提示**：如果你用的是 IntelliJ IDEA 编辑器，它通常自带 Maven，可能不需要单独安装。
+
+### 3. 🐬 数据库 (MySQL 8.0)
+这是项目的"仓库"，用来存用户信息、帖子内容等数据。
+- **怎么检查**：看看电脑里有没有装 MySQL。
+- **下载地址**：[MySQL官网](https://dev.mysql.com/downloads/)
+- **重要**：安装时记住你的**账号**（通常是 root）和**密码**，后面要用！
+
+### 4. 💻 代码编辑器 (推荐 IntelliJ IDEA)
+- **下载地址**：[JetBrains IDEA](https://www.jetbrains.com/idea/download/) (选 Community 免费版即可)
+
+---
+
+## 🚀 三步启动项目（保姆级教程）
+
+### 第一步：把代码"拿"下来
+如果你已经下载了代码包，解压到一个文件夹里（路径不要有中文！）。
+如果你会用 Git，可以在命令行输入：
+```bash
+git clone <你的项目地址>
+```
+
+### 第二步：配置"仓库"连接 (最重要的一步！)
+项目需要连上你的 MySQL 数据库才能运行。
+
+1. 在你的电脑 MySQL 里创建一个空数据库，名字叫 `campus_ai_help`。
+   ```sql
+   CREATE DATABASE campus_ai_help CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   ```
+2. 找到项目里的配置文件：`src/main/resources/application.properties`。
+3. 用记事本或编辑器打开它，找到下面这几行，**改成你自己的数据库账号和密码**：
+
+```properties
+# 🛑 请修改这里！
+spring.datasource.url=jdbc:mysql://localhost:3306/campus_ai_help?useSSL=false&serverTimezone=UTC
+spring.datasource.username=root       <-- 改成你的数据库账号
+spring.datasource.password=你的密码    <-- 改成你的数据库密码
+spring.jpa.hibernate.ddl-auto=update <-- 这个不用改，它会自动帮你建表
+```
+
+> 💡 **刚才报错怎么办？**
+> 如果你看到 `无法解析 org.springframework.data...` 这种错误：
+> 1. 打开 IDEA 右侧的 **Maven** 面板。
+> 2. 点击那个 **刷新图标** (两个箭头转圈圈)。
+> 3. 等待底部进度条走完，它会自动下载缺少的包。
+
+### 第三步：运行项目
+1. 用 IDEA 打开这个项目文件夹。
+2. 找到 `src/main/java/.../CampusAiHelpApplication.java` 这个文件（通常有个绿色小三角形图标）。
+3. 点击那个 **绿色三角形** (Run)。
+4. 等控制台不再滚动，出现 `Started CampusAiHelpApplication in ... seconds` 字样，就说明成功啦！
+
+---
+
+## 🌐 怎么使用？
+
+启动成功后，打开浏览器访问：
+👉 **http://localhost:8080**
+
+你就能看到登录页面了！
+- **默认管理员账号**：`admin` / `123456` (具体看项目初始化数据)
+- **普通用户**：你可以自己注册一个新账号试试。
+
+---
+
+## ❓ 常见问题 (小白必看)
+
+### Q1: 报错 "Port 8080 was already in use" 是什么意思？
+**意思**：8080 端口被占用了（可能是你之前启动的项目没关掉，或者别的软件用了）。
+**解决**：
+- 关掉其他正在运行的 Java 程序。
+- 或者在 `application.properties` 里把端口改成别的，比如 `server.port=8081`。
+
+### Q2: 报错 "Access denied for user 'root'@'localhost'"？
+**意思**：数据库账号或密码填错了。
+**解决**：回去检查 `application.properties` 里的 `username` 和 `password` 是否和你安装 MySQL 时设置的一致。
+
+### Q3: 界面是空的，或者报 404 错误？
+**意思**：可能是数据库表还没生成，或者前端页面路径不对。
+**解决**：
+- 确保 `spring.jpa.hibernate.ddl-auto=update` 这行配置存在。
+- 重启一次项目，让它自动创建表格。
+
+### Q4: Maven 下载东西特别慢？
+**解决**：可以配置阿里云镜像。打开 `pom.xml` 或者 Maven 的 `settings.xml`，添加阿里云镜像源（如果不确定怎么配，可以先试着忍一忍，有时候只是第一遍慢）。
+
+---
+
+## 📚 项目里都有啥？(简单看看结构)
+
+```text
+项目根目录
+├── src
+│   ├── main
+│   │   ├── java          <-- 这里是写 Java 代码的地方 (后端逻辑)
+│   │   │   ├── controller  <-- 控制层 (处理浏览器请求)
+│   │   │   ├── service     <-- 服务层 (核心业务逻辑，比如AI怎么回答)
+│   │   │   ├── repository  <-- 数据层 (跟数据库打交道)
+│   │   │   └── entity      <-- 实体类 (对应数据库里的表，比如用户表、帖子表)
+│   │   └── resources     <-- 资源文件
+│   │       ├── static      <-- 放图片、CSS、JS (前端页面)
+│   │       └── application.properties <-- 配置文件 (改数据库密码在这里)
+└── pom.xml               <-- 项目依赖清单 (Maven 管家看的单子)
+```
+
+---
+
+## 🤝 接下来该做什么？
+
+恭喜你，项目已经跑起来了！作为初学者，你可以尝试：
+1. **改改文字**：找到 `static` 文件夹里的 HTML 文件，把标题改成你的名字。
+2. **调调颜色**：修改 CSS 文件，换个你喜欢的主题色。
+3. **加点功能**：试着在 `Controller` 里加一个简单的接口，比如访问 `/hello` 就返回 "Hello World"。
+
+---
+
+## 📞 遇到问题怎么办？
+
+- 仔细看报错信息的**第一行**和**最后一行**，通常写着原因。
+- 把报错信息复制到百度或 Google 搜索，99% 的问题别人都遇到过。
+- 如果是期末作业，记得多截图保存你的运行成果！
+
+**祝你学习愉快，期末高分通过！ 🎉**
